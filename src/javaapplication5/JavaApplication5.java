@@ -18,7 +18,7 @@ public class JavaApplication5 {
    
 java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                new MainestFrame().setVisible(true);
             }
         });
     

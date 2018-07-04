@@ -131,7 +131,7 @@ public class newContract extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel4.setText("Create a new contract");
 
-        jLabel2.setText("Regular Maintenance Period (months) ");
+        jLabel2.setText("Number of periods");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +151,7 @@ public class newContract extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Number of periods");
+        jLabel6.setText("Regular Maintenance Period (as month)");
 
         periodN.setText("(e.g. 3)");
         periodN.addActionListener(new java.awt.event.ActionListener() {
@@ -178,7 +178,7 @@ public class newContract extends javax.swing.JFrame {
                     .addComponent(firmChoice, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(typeName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                     .addComponent(periodN))
                 .addContainerGap())
         );
@@ -188,16 +188,13 @@ public class newContract extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(typeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(typeName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addGap(78, 78, 78)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(periodN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
@@ -206,9 +203,13 @@ public class newContract extends javax.swing.JFrame {
                             .addComponent(jButton1)
                             .addComponent(jButton2)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(firmChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(firmChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
                 .addGap(18, 18, 18))
         );
 
@@ -216,10 +217,12 @@ public class newContract extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            MainFrame ff = new MainFrame();
+        setVisible(false);
+        dispose();
+        MainFrame ff = new MainFrame();
         ff.setLocation(750,350);
         ff.setVisible(true);
-        setVisible(false);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -292,7 +295,7 @@ public class newContract extends javax.swing.JFrame {
          String date2 = dFormat2.format(cal.getTime());
          
          insertIntoMaintenances(firmIDChosen,typeIDchosen,date2);
-     
+     JOptionPane.showMessageDialog(this, "New contact is created!");
         }
         
        /////////////////////////////////////////////////// 
@@ -302,7 +305,11 @@ public class newContract extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void periodNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_periodNActionPerformed
-        // TODO add your handling code here:
+      setVisible(false);
+        dispose();
+        MainFrame ff = new MainFrame();
+        ff.setLocation(750,350);
+        ff.setVisible(true);
     }//GEN-LAST:event_periodNActionPerformed
 
     /**

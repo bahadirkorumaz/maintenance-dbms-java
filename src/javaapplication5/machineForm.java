@@ -290,10 +290,11 @@ public class machineForm extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_textField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        setVisible(false);
+        dispose();
         MainFrame ff = new MainFrame();
         ff.setLocation(750,350);
         ff.setVisible(true);
-        setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
          
       

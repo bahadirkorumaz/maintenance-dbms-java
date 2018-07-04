@@ -132,7 +132,7 @@ public class machineTypeForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Number of terms that responsible");
+        jLabel5.setText("Number of periods");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -274,7 +274,7 @@ public class machineTypeForm extends javax.swing.JFrame {
       insertIntoMaintenanceTable(lastID,date2,period);
         }
       
-       JOptionPane.showMessageDialog(this, "Successfully Submitted!");
+       JOptionPane.showMessageDialog(this, "New machine type has created!");
       conn.close();
     }
     catch (Exception e)
@@ -349,10 +349,12 @@ public class machineTypeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+setVisible(false);
+        dispose();
         MainFrame ff = new MainFrame();
         ff.setLocation(750,350);
         ff.setVisible(true);
-        setVisible(false);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

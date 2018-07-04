@@ -7,7 +7,9 @@ package javaapplication5;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
@@ -79,7 +81,7 @@ public class showMachines extends javax.swing.JFrame {
       
       Class.forName(myDriver);
       Connection conn = DriverManager.getConnection(myUrl, "root", "");
-      String query = "SELECT * FROM machines WHERE typeID="+typeIDchosen+";";
+      String query = "SELECT * FROM machines WHERE typeID="+typeIDchosen+" AND isDeleted=0;";
       Statement st = conn.createStatement();
       ResultSet rs = st.executeQuery(query);
 
@@ -124,6 +126,7 @@ public class showMachines extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         typeName = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -157,6 +160,15 @@ public class showMachines extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                jTable1AncestorRemoved(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -175,6 +187,13 @@ public class showMachines extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Machines");
 
+        jButton2.setText("Delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,7 +204,9 @@ public class showMachines extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(typeName, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, Short.MAX_VALUE)
@@ -195,10 +216,12 @@ public class showMachines extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(typeName)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(typeName)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -213,17 +236,19 @@ public class showMachines extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         MainFrame ff = new MainFrame();
+       setVisible(false);
+        dispose();
+        MainFrame ff = new MainFrame();
         ff.setLocation(750,350);
         ff.setVisible(true);
-        setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void typeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeNameActionPerformed
-       for(int i=0; i<model.getRowCount(); i++) {
-           model.removeRow(i);
-       }
-        
+       int rowCount = model.getRowCount();
+//Remove rows one by one from the end of the table
+for (int i = rowCount - 1; i >= 0; i--) {
+    model.removeRow(i);
+}
         try
     {
       String myDriver = "org.gjt.mm.mysql.Driver";
@@ -239,7 +264,7 @@ public class showMachines extends javax.swing.JFrame {
       
       Class.forName(myDriver);
       Connection conn = DriverManager.getConnection(myUrl, "root", "");
-      String query = "SELECT * FROM machines WHERE typeID="+typeIDchosen+";";
+      String query = "SELECT * FROM machines WHERE typeID="+typeIDchosen+" AND isDeleted=0;";
       Statement st = conn.createStatement();
       ResultSet rs = st.executeQuery(query);
 
@@ -261,7 +286,89 @@ public class showMachines extends javax.swing.JFrame {
       System.err.println("Got an exception! ");
       System.err.println(e.getMessage());
     }
+        
+        
+     
+        
+        
+        
+        
     }//GEN-LAST:event_typeNameActionPerformed
+
+    private void jTable1AncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable1AncestorRemoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1AncestorRemoved
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       int selectedRow = jTable1.getSelectedRow();
+       int selectedMachineID = (int) model.getValueAt(selectedRow, 0);
+        try
+    {
+       String myDriver = "org.gjt.mm.mysql.Driver";
+      String myUrl = "jdbc:mysql://localhost/databaseLAST";
+      Connection conn = DriverManager.getConnection(myUrl, "root", "");
+        // create the mysql delete statement.
+      // i'm deleting the row where the id is "3", which corresponds to my
+      // "Barney Rubble" record.
+       PreparedStatement ps = conn.prepareStatement(
+      "UPDATE machines SET isDeleted = 1 WHERE machineID ="+selectedMachineID);
+
+
+    // call executeUpdate to execute our sql update statement
+    ps.executeUpdate();
+    ps.close();
+  }
+  catch (SQLException se)
+  {
+    
+  }
+        
+         int rowCount = model.getRowCount();
+//Remove rows one by one from the end of the table
+for (int i = rowCount - 1; i >= 0; i--) {
+    model.removeRow(i);
+}
+        try
+    {
+      String myDriver = "org.gjt.mm.mysql.Driver";
+      String myUrl = "jdbc:mysql://localhost/databaseLAST";
+      
+       int typeIDchosen=-1;
+      
+      for(int i=0; i<100; i++) {
+          if(typeName.getSelectedItem().toString()==typeNames[i]) {
+              typeIDchosen = typeIDs[i];
+          }
+      }
+      
+      Class.forName(myDriver);
+      Connection conn = DriverManager.getConnection(myUrl, "root", "");
+      String query = "SELECT * FROM machines WHERE typeID="+typeIDchosen+" AND isDeleted=0;";
+      Statement st = conn.createStatement();
+      ResultSet rs = st.executeQuery(query);
+
+
+      while (rs.next())
+      {
+          
+    int machineID = rs.getInt("machineID");
+    int floor = rs.getInt("floor");
+    String warrantyEnds = rs.getDate("lastWarrantyDate").toString();
+    String roomName = rs.getString("room");
+    model.addRow(new Object[]{machineID,warrantyEnds,floor,roomName});
+
+      }
+      st.close();
+    }
+    catch (Exception e)
+    {
+      System.err.println("Got an exception! ");
+      System.err.println(e.getMessage());
+    }
+        
+       
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,6 +407,7 @@ public class showMachines extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

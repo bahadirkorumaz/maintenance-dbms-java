@@ -140,10 +140,11 @@ public class firmForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-           MainFrame ff = new MainFrame();
+        setVisible(false);
+        dispose();
+        MainFrame ff = new MainFrame();
         ff.setLocation(750,350);
         ff.setVisible(true);
-        setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

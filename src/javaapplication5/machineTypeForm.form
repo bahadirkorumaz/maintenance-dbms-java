@@ -214,7 +214,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Number of terms that responsible"/>
+            <Property name="text" type="java.lang.String" value="Number of periods"/>
           </Properties>
         </Component>
       </SubComponents>
